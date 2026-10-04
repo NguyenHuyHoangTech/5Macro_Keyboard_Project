@@ -1,0 +1,41 @@
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/outputs.h>
+
+#define DEFAULT 0
+#define EDIT    1
+#define NAV     2
+
+/ {
+    keymap {
+        compatible = "zmk,keymap";
+
+        default_layer {
+            // Layer 0: Media & Web
+            // SW1: Ctrl+Tab | SW2: Ctrl+Shift+Tab | SW3: Copy | SW4: Paste | SW5: Hold for EDIT Layer | Encoder Btn: Play/Pause
+            bindings = <
+                &kp LC(TAB) &kp LC(LS(TAB)) &kp LC(C) &kp LC(V) &mo EDIT &kp C_PP
+            >;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+        };
+
+        edit_layer {
+            // Layer 1: Edit Mode
+            // SW1: [ | SW2: ] | SW3: Ctrl+Y | SW4: Ctrl+Z | SW5: Hold for NAV Layer | Encoder Btn: Undo
+            bindings = <
+                &kp LBKT &kp RBKT &kp LC(Y) &kp LC(Z) &mo NAV &kp LC(Z)
+            >;
+            sensor-bindings = <&inc_dec_kp LC(EQUAL) LC(MINUS)>;
+        };
+
+        nav_layer {
+            // Layer 2: Nav Mode
+            // SW1: Up | SW2: Down | SW3: Left | SW4: Right | SW5: Trans | Encoder Btn: Mute
+            bindings = <
+                &kp UP &kp DOWN &kp LEFT &kp RIGHT &trans &kp C_MUTE
+            >;
+            sensor-bindings = <&inc_dec_kp PG_DN PG_UP>;
+        };
+    };
+};
